@@ -10,7 +10,7 @@ class HumanPlayer(Player):
 		os.system('color ' + self.color)
 		freeCells = TicTacToe.getFreeCellIds(board)
 		while True:
-			cellId = input(self.name + '\'s time to play (1-9): ')
+			cellId = input()
 			try:
 				cellId = int(cellId)
 			except:

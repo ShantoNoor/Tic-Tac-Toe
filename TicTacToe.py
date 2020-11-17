@@ -76,6 +76,7 @@ class TicTacToe:
 		while self.freeCellCount > 0 and not isAnyOneWinner:
 			for player in players:
 				self.printBoard()
+				print(f'{player.getName()}\'s({player.getChar()}) time to play (1-9): ')
 				self.placeCellInBoard(player.getCellId(self.board), player.getChar())
 				if(self.freeCellCount < 5 and TicTacToe.isWinner(self.board, player.getChar())):
 					isAnyOneWinner = True
@@ -84,6 +85,7 @@ class TicTacToe:
 					break
 				elif(self.freeCellCount == 0):
 					os.system('color 0C')
+					self.printBoard()
 					print('It\'s a tie...')
 					break
 		self.retry(players)
