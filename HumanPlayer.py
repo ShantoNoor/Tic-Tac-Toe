@@ -7,7 +7,6 @@ class HumanPlayer(Player):
 
 	#@overide
 	def getCellId(self, board):
-		os.system('color ' + self.color)
 		freeCells = TicTacToe.getFreeCellIds(board)
 		while True:
 			cellId = input()

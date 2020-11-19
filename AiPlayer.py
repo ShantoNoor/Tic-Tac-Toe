@@ -12,14 +12,14 @@ class AiPlayer(Player):
 
 
 	def minimax(self, maximizer, board, freeCellCount):
-		if freeCellCount == 0:
-			return [0, 0]
-
 		if not maximizer and TicTacToe.isWinner(board, self.char):
 			return [1*(freeCellCount+1), 0]
 
 		if maximizer and TicTacToe.isWinner(board, self.player2Char):
 			return [-1*(freeCellCount+1), 0]
+
+		if freeCellCount == 0:
+			return [0, 0]
 
 		freeCellIds = TicTacToe.getFreeCellIds(board)
 		bestMove = 0
@@ -27,9 +27,9 @@ class AiPlayer(Player):
 		if maximizer:
 			maxValue = float('-inf')
 			for cellId in freeCellIds:
-				board[cellId-1] = self.char
+				TicTacToe.placeCellInBoard(board, cellId, self.char) # Removing
 				value, move = self.minimax(False, board, freeCellCount-1)
-				board[cellId-1] = ' '
+				TicTacToe.placeCellInBoard(board, cellId, ' ') # Removing
 				if value > maxValue:
 					maxValue = value
 					bestMove = cellId
@@ -39,9 +39,10 @@ class AiPlayer(Player):
 		else:
 			minValue = float('inf')
 			for cellId in freeCellIds:
-				board[cellId-1] = self.player2Char
+				# board[cellId-1] = self.player2Char
+				TicTacToe.placeCellInBoard(board, cellId, self.player2Char)
 				value, move = self.minimax(True, board, freeCellCount-1)
-				board[cellId-1] = ' '
+				TicTacToe.placeCellInBoard(board, cellId, ' ') # Removing
 				if value < minValue:
 					minValue = value
 					bestMove = cellId

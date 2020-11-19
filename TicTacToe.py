@@ -19,9 +19,9 @@ class TicTacToe:
 		print()
 
 
-	def placeCellInBoard(self, cellId, playerChar):
-		self.board[cellId-1] = playerChar
-		self.freeCellCount -= 1
+	@staticmethod
+	def placeCellInBoard(board, cellId, playerChar):
+		board[cellId-1] = playerChar
 
 
 	@staticmethod
@@ -66,6 +66,7 @@ class TicTacToe:
 		char = input('Press any key to retry(x to exit): ')
 		if(char.lower() == 'x'):
 			print('Exiting...')
+			self.__init__()
 		else:
 			self.__init__()
 			self.play(players)
@@ -75,9 +76,11 @@ class TicTacToe:
 		isAnyOneWinner = False
 		while self.freeCellCount > 0 and not isAnyOneWinner:
 			for player in players:
+				os.system('color ' + player.getColor())
 				self.printBoard()
 				print(f'{player.getName()}\'s({player.getChar()}) time to play (1-9): ')
-				self.placeCellInBoard(player.getCellId(self.board), player.getChar())
+				TicTacToe.placeCellInBoard(self.board, player.getCellId(self.board), player.getChar())
+				self.freeCellCount -= 1
 				if(self.freeCellCount < 5 and TicTacToe.isWinner(self.board, player.getChar())):
 					isAnyOneWinner = True
 					self.printBoard()

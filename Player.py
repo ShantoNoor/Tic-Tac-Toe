@@ -1,4 +1,3 @@
-import os
 from TicTacToe import *
 
 class Player:
